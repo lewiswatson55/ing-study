@@ -1,4 +1,7 @@
+wheel
 flask
 pandas
 jinja2
 apscheduler
+uwsgi
+python-dotenv

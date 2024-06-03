@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Evaluation Template</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+        .row-set-1 {
+            background-color: white;
+        }
+        .row-set-2 {
+            background-color: #f6f6f6;
+        }
+        .divider-row {
+        height: 10px;
+        background-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <nav class="bg-white shadow fixed w-full z-10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-center">
+                <span class="text-xl font-semibold">Human Evaluation Template</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto py-20">
+
+<!-- Page 1: Consent Sheet -->
+    <div id="page1" class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold mb-4">Consent Sheet</h2>
+        <div class="mt-4">
+            <h3 class="text-xl font-semibold">Prompting for Computational Linguistics</h3>
+            <p><strong>Experiment:</strong> Generated Text Quality 2024-06</p>
+            <p><strong>Lead Researcher:</strong> Dave Howcroft (D.Howcroft@napier.ac.uk)</p>
+            <h4 class="font-semibold mt-4">Study purpose</h4>
+            <p>We are developing text generation systems for English. In order to improve these systems, we need to ask humans to rate the quality of the generated texts. The collected data will be used:</p>
+            <ul class="list-disc list-inside ml-4">
+                <li>to inform the design of text generation systems;</li>
+                <li>to provide data for researchers interested in evaluating generated text; and</li>
+                <li>to train artificial intelligence (AI) systems for text generation.</li>
+            </ul>
+            <h4 class="font-semibold mt-4">Requirements</h4>
+            <ul class="list-disc list-inside ml-4">
+                <li>Everyone participating in the study must be at least 18 years old.</li>
+                <li>Participants must be speakers of English as a first language and living in one of the following countries: Ireland, the UK, New Zealand, the USA, Australia, or Canada.</li>
+            </ul>
+            <h4 class="font-semibold mt-4">What does participating in the study entail?</h4>
+            <p>There are two main phases to this study: (1) a set of instructions and example ratings followed by (2) rating [10/20/30/100/200/etc] texts for their [fluency/accuracy/etc].</p>
+            <p>[For participants on Prolific or Mechanical Turk:] After completing the study, you will be paid [£12/hr * experiment duration in hours] for your participation.</p>
+            <h4 class="font-semibold mt-4">Data collection and sharing</h4>
+            <p>We will collect:</p>
+            <ul class="list-disc list-inside ml-4">
+                <li>your consent through this form;</li>
+                <li>[for self-recruited participants] your answers to the Demographic Info form;</li>
+                <li>the ratings and comments you provide; and</li>
+                <li>normal server meta-data to ensure that our survey software is working as intended (including, for example, your IP address).</li>
+            </ul>
+            <p>All the data will be stored anonymously and published anonymously as well. Demographic information about language familiarity will only be stored and published in aggregate. We will ensure that it is not possible to associate this data with you as an individual.</p>
+            <h4 class="font-semibold mt-4">Rights</h4>
+            <ul class="list-disc list-inside ml-4">
+                <li>Your participation is completely voluntary, and you have the right to decline to participate and withdraw from the research once participation has begun, without any negative consequences, and without providing any explanation.</li>
+                <li>You will not be asked to provide sensitive data, or special category data. GDPR sensitive data is any data that reveals information such as racial or ethnic origin, political or religious beliefs, or gender or sexual orientation.</li>
+                <li>You are entitled to compensation by taking part in this study, based on the rate mentioned above.</li>
+                <li>As the data is fully anonymous, we may not be able to delete or alter your responses.</li>
+            </ul>
+            <h4 class="font-semibold mt-4">What does consent mean?</h4>
+            <p>By consenting, you indicate that you are voluntarily taking part in this study, and you allow for your data to be processed. This means that:</p>
+            <ul class="list-disc list-inside ml-4">
+                <li>You agree that your answers may be used to publish research articles on this topic.</li>
+                <li>The data will be stored on the computers of the research team, with both local (hard drive) and online (protected cloud drive) backups.</li>
+                <li>The anonymised data will be made public upon completion of this study.</li>
+            </ul>
+            <p>The actual consent form is on the next page.</p>
+            <h4 class="font-semibold mt-4">Contact details</h4>
+            <p>This study has been approved by the Research Ethics and Data Management Committee of the School of Computing. If you have any questions about this study, you may contact the principal investigator via email: D.Howcroft@napier.ac.uk. If you have any remarks or complaints regarding this research, you may also contact the research ethics committee via: EMAIL ADDRESS</p>
+            <p class="mt-4"><strong>Full research team:</strong></p>
+            <p>David M. Howcroft, Research Fellow, Edinburgh Napier University</p>
+            <p>Dimitra Gkatzia, Associate Professor, Edinburgh Napier University</p>
+        </div>
+
+        <div class="mt-4">
+            <h2 class="text-2xl font-semibold mb-4">Informed Consent</h2>
+            <p>This is the consent form for our study collecting ratings for and comments on automatically generated English language texts. Full details for this study were provided on the previous page. If you want to read this information again, you can go back to the previous page. If anything is still unclear about this study, please contact: D.Howcroft@napier.ac.uk</p>
+            <h3 class="text-xl font-semibold mt-4">Consent</h3>
+            <p>By consenting, you indicate that you have read the description on the previous page, that you are voluntarily taking part in this study, and that you allow your data to be processed. This means that:</p>
+            <ul class="list-disc list-inside ml-4">
+                <li>You agree to your responses being recorded here and in our survey.</li>
+                <li>Your answers will be used in future publications pertaining to this topic, either through aggregated analyses or directly quoted without attribution to you.</li>
+                <li>The data will be shared with our research team locally and online and backed up. This data will be stored for 10 years. After the data is anonymised for external publication, none of your answers can be traced back to you.</li>
+                <li>You acknowledge that there is financial compensation for taking part in this study, as outlined on the previous page.</li>
+            </ul>
+            <p>Note that you may still withdraw your consent after completing this form without consequence. We will delete all incomplete forms and any correspondence from emails or messages. If possible, we will also delete your survey responses.</p>
+            <h3 class="text-xl font-semibold mt-4">Do you consent?</h3>
+            <p>Do you confirm that you are aged over 18 years of age and are able to take part in this study? If you consent, please indicate this below by clicking “Yes”. If you click “No”, you will not be able to proceed. You may also close this page to stop participating in this study.</p>
+            <div class="mt-4">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="consent" id="consentYes" class="form-radio">
+                    <span class="ml-2">Yes, I consent.</span>
+                </label>
+            </div>
+            <div class="mt-4">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="consent" id="consentNo" class="form-radio">
+                    <span class="ml-2">No, I do not consent.</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+<!-- Page 2: Example and Instructions -->
+<div id="page2" class="bg-white rounded-lg shadow-md p-6 hidden">
+    <h2 class="text-2xl font-semibold mb-4">Examples and Instructions</h2>
+    <p>Before you start the task, let's go through an example to help you understand the input format and the type of evaluations you will be doing.</p>
+    <div class="mt-4">
+        <p class="font-semibold">Input:</p>
+        <div class="flex space-x-4">
+            <p class="bg-gray-100 p-2 rounded-md">Entity1</p>
+            <p class="bg-gray-100 p-2 rounded-md">Relation</p>
+            <p class="bg-gray-100 p-2 rounded-md">Entity2</p>
+        </div>
+        <p class="mt-4">For instance, the input could be:</p>
+        <div class="flex space-x-4 mt-2">
+            <p class="bg-gray-100 p-2 rounded-md">Paris</p>
+            <p class="bg-gray-100 p-2 rounded-md">is the capital of</p>
+            <p class="bg-gray-100 p-2 rounded-md">France</p>
+        </div>
+    </div>
+    <div class="mt-4">
+        <p class="font-semibold">Output:</p>
+        <p class="bg-gray-100 p-2 rounded-md">Paris is the capital of France, home of la Tour Eiffel.</p>
+    </div>
+    <div class="mt-4">
+        <p>In the task, you will be given a set of inputs like the one above and a generated output. Your job is to rate the output's fluency on a 7-point Likert scale and indicate if any part is missing or incorrect in the output.</p>
+        <p class="font-semibold mt-4">Fluency Rating:</p>
+        <div class="flex justify-between items-center w-full p-2 bg-gray-200 rounded-md">
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="1">
+                <span class="ml-2">Strongly Disagree</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="2">
+                <span class="ml-2">Disagree</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="3">
+                <span class="ml-2">Somewhat Disagree</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="4">
+                <span class="ml-2">Neutral</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="5">
+                <span class="ml-2">Somewhat Agree</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="6">
+                <span class="ml-2">Agree</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency" value="7">
+                <span class="ml-2">Strongly Agree</span>
+            </label>
+        </div>
+    </div>
+    <div class="mt-4">
+        <p class="font-semibold">Part Status:</p>
+        <p>Identify if any part is missing or incorrect in the output. For example:</p>
+        <table class="w-full mt-2 border border-gray-300 rounded-md">
+            <thead>
+                <tr>
+                    <th class="border px-4 py-2">Part</th>
+                    <th class="border px-4 py-2">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">Paris</td>
+                    <td class="border px-4 py-2">
+                        <select name="example_part1_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">is the capital of</td>
+                    <td class="border px-4 py-2">
+                        <select name="example_part2_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">France</td>
+                    <td class="border px-4 py-2">
+                        <select name="example_part3_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4">
+        <p class="font-semibold">Extra Information:</p>
+        <p>Identify if there is any extra information in the output that was not in the input. For example, this is where we note that "Home of La Tour Eiffel." was not in the input.</p>
+        <div class="flex space-x-4 mt-2">
+            <label class="flex items-center">
+                <input type="radio" class="form-radio" name="example_extra_info" value="yes">
+                <span class="ml-2">Yes</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" class="form-radio" name="example_extra_info" value="no">
+                <span class="ml-2">No</span>
+            </label>
+        </div>
+        <div class="mt-4">
+            <label for="example_added_info" class="block font-semibold">If yes, describe what was added:</label>
+            <textarea id="example_added_info" name="example_added_info" class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Describe the additional information here..."></textarea>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Pages for each item in the dataset -->
+        {% for item in items %}
+        <!-- okay so this seems weird, we have +3 because we start at 0 for the index, then we have 1 for the consent page, 1 for the example page - totalling +3 to here -->
+        <div id="page{{ loop.index + 2 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Task {{ loop.index }}</h2>
+            <p>Please read the following input and output and rate its fluency on a 7-point Likert scale. Additionally, indicate if any part is missing or incorrect in the output.</p>
+            <div class="mt-4">
+                <div class="mb-4">
+                    <p class="font-semibold">Input:</p>
+                    {% for triple in item.triples %}
+                    <div class="flex space-x-4 ">
+                        <p class="bg-gray-100 p-2 rounded-md">{{ triple[0] }}</p>
+                        <p class="bg-gray-100 p-2 rounded-md">{{ triple[1] }}</p>
+                        <p class="bg-gray-100 p-2 rounded-md">{{ triple[2] }}</p>
+                    </div>
+                        <br>
+
+                    {% endfor %}
+                    <p class="font-semibold mt-4">Output:</p>
+                    <p class="bg-gray-100 p-2 rounded-md">{{ item.text }}</p>
+                    <br>
+                    <p class="text-xl font-semibold"> Task Questions: </p>
+                    <fieldset class="mt-4">
+                        <p class="font-semibold text-lg">Question 1: The output text flows naturally and is easy to understand.</p>
+                        <div class="flex justify-between items-center w-full p-2 bg-gray-200 rounded-md">
+                            {% for i in range(1, 8) %}
+                            <label class="flex-1 flex items-center justify-center">
+                                <input type="radio" class="form-radio" name="task{{ loop.index + 1 }}_fluency" value="{{ i }}">
+                                <span class="ml-2">{{ 'Strongly Disagree' if i == 1 else 'Disagree' if i == 2 else 'Somewhat Disagree' if i == 3 else 'Neutral' if i == 4 else 'Somewhat Agree' if i == 5 else 'Agree' if i == 6 else 'Strongly Agree' }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                    <br>
+                    <div class="mt-4">
+                    <label for="task{{ loop.index + 1 }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part is missing or incorrect in the output:</label>
+                    <table class="w-full mt-2 border border-gray-300 rounded-md">
+                        <thead>
+                            <tr>
+                                <th class="border px-4 py-2">Part</th>
+                                <th class="border px-4 py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for triple in item.triples %}
+                            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
+                                <td class="border px-4 py-2">{{ triple[0] }}</td>
+                                <td class="border px-4 py-2">
+                                    <select name="task{{ loop.index + 1 }}_part{{ loop.index0 * 3 + 1 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
+                                        <option value="" selected disabled>Select status</option>
+                                        <option value="present">Present</option>
+                                        <option value="missing">Missing</option>
+                                        <option value="incorrect">Incorrect</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
+                                <td class="border px-4 py-2">{{ triple[1] }}</td>
+                                <td class="border px-4 py-2">
+                                    <select name="task{{ loop.index + 1 }}_part{{ loop.index0 * 3 + 2 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
+                                        <option value="" selected disabled>Select status</option>
+                                        <option value="present">Present</option>
+                                        <option value="missing">Missing</option>
+                                        <option value="incorrect">Incorrect</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
+                                <td class="border px-4 py-2">{{ triple[2] }}</td>
+                                <td class="border px-4 py-2">
+                                    <select name="task{{ loop.index + 1 }}_part{{ loop.index0 * 3 + 3 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
+                                        <option value="" selected disabled>Select status</option>
+                                        <option value="present">Present</option>
+                                        <option value="missing">Missing</option>
+                                        <option value="incorrect">Incorrect</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% if not loop.last %}
+                                <tr class="divider-row"></tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                    <br>
+                    <div class="mt-4">
+                        <label for="task{{ loop.index + 1 }}_extra_info" class="block font-semibold text-lg">Question 3: Was any extra information in the output that was not in the input?</label>
+                        <div class="flex space-x-4 mt-2">
+                            <label class="flex items-center">
+                                <input type="radio" class="form-radio" name="task{{ loop.index + 1 }}_extra_info" value="yes">
+                                <span class="ml-2">Yes</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" class="form-radio" name="task{{ loop.index + 1 }}_extra_info" value="no">
+                                <span class="ml-2">No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="task{{ loop.index + 1 }}_added_info" class="block font-semibold text-lg">If yes, describe what was added:</label>
+                        <textarea id="task{{ loop.index + 1 }}_added_info" name="task{{ loop.index + 1 }}_added_info" class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Describe the additional information here..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Page for submission -->
+        <div id="page{{ items|length + 3 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Submit</h2>
+            <p>Thank you for completing the evaluation. Please review your responses and click submit to finish.</p>
+        </div>
+    </div>
+
+    <!-- Sticky Footer -->
+    <footer class="fixed bottom-0 w-full bg-gray-800 text-white">
+        <div class="container mx-auto py-4 flex justify-between items-center">
+            <button id="backButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="goBack()">Back</button>
+            <button id="nextButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled" onclick="goNext()" disabled>Next</button>
+        </div>
+    </footer>
+
+    <!-- JavaScript for navigation buttons -->
+    <script>
+        let currentPage = 1;
+        const totalPages = {{ items|length + 3 }};
+
+        document.querySelectorAll('input[name="consent"]').forEach((elem) => {
+            elem.addEventListener('change', function() {
+                const nextButton = document.getElementById('nextButton');
+                if (document.getElementById('consentYes').checked) {
+                    nextButton.classList.remove('disabled');
+                    nextButton.disabled = false;
+                } else {
+                    nextButton.classList.add('disabled');
+                    nextButton.disabled = true;
+                }
+            });
+        });
+
+        function showPage(page) {
+            console.log(`Showing page: ${page}`);
+            for (let i = 1; i <= totalPages; i++) {
+                const pageElement = document.getElementById(`page${i}`);
+                if (pageElement) {
+                    pageElement.classList.add('hidden');
+                } else {
+                    console.warn(`Page element not found: page${i}`);
+                }
+            }
+            const currentPageElement = document.getElementById(`page${page}`);
+            if (currentPageElement) {
+                currentPageElement.classList.remove('hidden');
+            } else {
+                console.error(`Current page element not found: page${page}`);
+            }
+        }
+
+
+        function goBack() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+            updateButtons();
+        }
+
+        function goNext() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            } else if (currentPage === totalPages) {
+                submitForm();
+            }
+            updateButtons();
+        }
+
+        function updateButtons() {
+            document.getElementById('backButton').disabled = currentPage === 1;
+            document.getElementById('backButton').classList.toggle('disabled', currentPage === 1);
+            const nextButton = document.getElementById('nextButton');
+            if (currentPage === totalPages) {
+                nextButton.innerText = 'Submit';
+                nextButton.onclick = submitForm;
+            } else {
+                nextButton.innerText = 'Next';
+                nextButton.onclick = goNext;
+            }
+        }
+
+
+function submitForm() {
+            const results = {};
+
+            for (let i = 1; i <= totalPages - 3; i++) {
+                const selectedValue = document.querySelector(`input[name="task${i}_fluency"]:checked`)?.value;
+                const part1Status = document.querySelector(`select[name="task${i}_part1_status"]`)?.value || null;
+                const part2Status = document.querySelector(`select[name="task${i}_part2_status"]`)?.value || null;
+                const part3Status = document.querySelector(`select[name="task${i}_part3_status"]`)?.value || null;
+                const extraInfo = document.querySelector(`input[name="task${i}_extra_info"]:checked`)?.value || null;
+                const addedInfo = document.querySelector(`textarea[name="task${i}_added_info"]`)?.value || null;
+
+                results[`task${i}`] = {
+                    fluency: selectedValue || null,
+                    parts: {
+                        part1: part1Status,
+                        part2: part2Status,
+                        part3: part3Status
+                    },
+                    extraInfo: extraInfo,
+                    addedInfo: addedInfo
+                };
+            }
+
+            alert(JSON.stringify(results));
+        }
+
+        showPage(currentPage);
+        updateButtons();
+    </script>
+</body>
+</html>

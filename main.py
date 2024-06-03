@@ -21,8 +21,8 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
                  # Should probably note the 1hr limit on the interface/instructions.
                  # NOTE: If you do not want to expire tasks, set this to a very large number, 0 will not work.
 
-TEMPLATE = "example.html"
-DATA = "rotowire.csv"
+TEMPLATE = "humevaljinja.html"
+DATA = "example-for-lewis.csv"
 
 # Load the data from the csv file into a pandas dataframe
 df = pd.read_csv(DATA)
@@ -86,6 +86,49 @@ def index():
         return {"result":"OK"}, 200
     else:
         return "Nothing Here.", 200
+
+
+@app.route('/eval')
+def eval():
+    return render_template(TEMPLATE)
+
+def split_input(input_str):
+    triples = []
+    parts = input_str.split('<')
+    parts = [part.strip() for part in parts if part]  # Remove empty strings and strip whitespace
+
+    #print(parts)
+
+    if len(parts) % 3 != 0:
+        raise ValueError("The input string does not contain a valid number of triples.")
+
+    for i in range(0, len(parts), 3):
+        try:
+            subject = parts[i].replace('SUBJECT> ', '')
+            predicate = parts[i + 1].replace('PREDICATE> ', '')
+            object_ = parts[i + 2].replace('OBJECT> ', '')
+            triples.append((subject, predicate, object_))
+        except IndexError:
+            raise ValueError("The input string does not contain a valid number of triples.")
+    return triples
+
+
+@app.route('/e/<int:row_id>')
+def e(row_id):
+    row = df.iloc[row_id]
+    items = []
+    print("Row length " + str(len(row)))
+    for i in range(1, 6):  # Adjust the range based on the maximum number of items
+        item_input_key = f'item{i}_input'
+        if item_input_key in row:
+            triples = split_input(row[item_input_key])
+            items.append({
+                'triples': triples,
+                'text': row[f'item{i}_text']
+            })
+    # print(items)
+    # print(len(items))
+    return render_template(TEMPLATE, items=items)
 
 # This route is used for testing the interface on specific rows of the csv file
 @app.route('/row/<int:row_id>', methods=['GET', 'POST'])

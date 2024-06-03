@@ -1,71 +1,14 @@
 
-# Flask Server for Prolific Tasks
 
-> This code is in development and has not been fully tested. Please use with caution.
-Please see the [additional notes file](https://github.com/nlgcat/reprohum-prolific-webapp/blob/main/additional_notes.md), containing thoughts/problems/solutions from using the app with prolific - feel free to contribute via PR if you have used the app.
+1. set up a venv or conda env or just use base
+2. install requirements.txt: `pip install -r requirements.txt`
+3. run `python main.py` to start the server
+4. open `127.0.0.1:5000/e/0` in your browser for the first row in the database (or change the number to see other rows)\
 
-## Required files:
-- data.csv - this is the datafile containing the rows of data for each task
-- templates/interface.html - this is the interface for the HIT
-- database.db - This file will be created once you run the CreateDatabase.py script with the correct number of tasks (see below). 
+The csv being used is the stock "example-for-lewis.csv" you sent over, with the added item2-item5 header/columns.
+(the other two .csv files have some changes but i ended up just using the one you sent.)
 
-## Setup:
+If the .venv folder is in the directory it might not work if youre not on a mac, so you might have to delete it and recreate it with `python3 -m venv .venv` and then activate it with `source .venv/bin/activate` (or `source .venv/Scripts/activate` on windows)
+Then install the requirements like 2. above. Side note: github copilot just auto-completed the above sentence for me, which is pretty cool. You probably know this already but better to have too much info than too little.
 
-1. First, CreateDatabase.py should be run first to create the database and tables. You must first update the COMPLETIONS_PER_TASK variable to the number of completions you want per task. This is the number of times each task will be completed by a worker. The default is 3.
-2. Ensure all required files (see above) have been added for the new task.
-3. Update main.py's MAX_TIME variable to the maximum time you want the task to run for. The default is 60 minutes (3600 seconds).
-4. Update your interface.html file as required (see "Task Interface Changes" below).
-5. When ready, you will need to deploy the flask app to a server.
-
-
-## Task Interface Changes
-
-1. We must add a submit button that will collate the worker entered data and send it as JSON POST request to the server running the flask app.
-   This will require a new JS function to be added to the HTML file. **Make sure to include the task_id, prolific_pid, and session_id in the JSON data.**
-   Example: 
-    ```JS 
-   var task_id = document.getElementById("task_id").innerHTML;
-   var prolific_pid = document.getElementById("prolific_pid").value;
-   var session_id = document.getElementById("session_id").value;
-   ```
-
-2. We must also add a hidden field that will contain the task id. This can then be used to identify the task in the database for analysis.
-    Example: `<p hidden class="hidden">This is HiT: </p><p hidden class="hidden" id="task_id">${task_id}</p>`
-    Note: this is not required for SessionID or ProlificID - as the preprocess function will add these to the data.
-  3. Optional: Depending on your task, you may wish to include an alert for warning the worker when they have run out of time. 
-    
-```JS
-     function startFailedCountdown() {
-        var minutes = 60; //var minutes = 60;
-        var seconds = 0;
-        var totalSeconds = minutes * 60 + seconds;
-
-        var interval = setInterval(function() {
-            seconds--;
-            if (seconds < 0) {
-                minutes--;
-                seconds = 59;
-            }
-
-            if (minutes < 0) {
-
-                // Disable the submit button
-                document.getElementById("submit-button").disabled = true;
-                document.getElementById("submit-button").innerHTML = "You cannot submit this HIT anymore.";
-                document.getElementById("submit-button").classList.add("is-danger")
-
-                clearInterval(interval);
-
-                alert("The allocated time for this task has passed. Your answers will not be used and you will not be paid.");
-
-                // Redirect the worker to the Prolific app: https://app.prolific.com/
-                window.location.href = "https://app.prolific.co/";
-
-            }
-        }, 1000);
-    }
-
-    startFailedCountdown();
-```
-   
-You could also repeat this code to alert the worker when they have 10 minutes left, etc.
+The HTML template being used by flask is the humevaljinja.html file.
