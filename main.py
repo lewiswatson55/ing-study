@@ -21,7 +21,7 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
                  # Should probably note the 1hr limit on the interface/instructions.
                  # NOTE: If you do not want to expire tasks, set this to a very large number, 0 will not work.
 
-CHECK_TIME = 3600  # Time in seconds between checks for abandoned tasks - 1 hour = 3600 seconds
+CHECK_TIME = 30  # Time in seconds between checks for abandoned tasks - 1 hour = 3600 seconds
 
 TEMPLATE = "humevaljinja.html"
 DATA = "e2e-humeval3.csv"
@@ -170,7 +170,7 @@ def study():
 
     # If no task is available, return a message
     if task_id is None:
-        return "No tasks available", 400
+        return "No tasks available - if this is unexpected please wait up to 1 minute and refresh the page.", 400
 
     # Process the task content
     row = df.iloc[task_number - 1]

@@ -86,7 +86,7 @@ def expire_tasks(time_limit=3600):
             allocated_tasks = cursor.fetchall()
             # Iterate through the allocated tasks
             for task_id, time_allocated in allocated_tasks:
-                print(task_id, time_allocated)
+                #print(task_id, time_allocated)
 
                 if time_allocated is None:
                     print("Uh oh... time_allocated is None")
@@ -94,8 +94,8 @@ def expire_tasks(time_limit=3600):
 
                 # Calculate the time difference
                 time_diff = (current_time - datetime.strptime(time_allocated, '%Y-%m-%d %H:%M:%S.%f')).total_seconds()
-                print(current_time)
-                print("Time diff: " + str(time_diff) + " Time remaining: " + str(time_limit - time_diff))
+                #print(current_time)
+                #print("Time diff: " + str(time_diff) + " Time remaining: " + str(time_limit - time_diff))
                 # If the time difference is more than the time limit, expire the task
                 if time_diff > time_limit:
                     cursor.execute("UPDATE tasks SET status='waiting', prolific_id = NULL, time_allocated = NULL, session_id = NULL WHERE id=?", (task_id,))

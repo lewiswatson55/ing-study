@@ -522,7 +522,7 @@
 
             // Post the JSON to the server
             try {
-                const response = await fetch('/', {
+                const response = await fetch('/inlg', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -542,6 +542,67 @@
                 alert('Form submission failed');
             }
         }
+
+
+function startNoticeCountdown() {
+    var minutes = 25; //var minutes = 50;
+    var seconds = 0;
+    var totalSeconds = minutes * 60 + seconds;
+
+    var interval = setInterval(function () {
+        seconds--;
+        if (seconds < 0) {
+            minutes--;
+            seconds = 59;
+        }
+
+        if (minutes < 0) {
+            clearInterval(interval);
+            alert("The task is expected to take about 30 minutes. You have been working for 25 minutes and the task is available to you for another 35 minutes.");
+        }
+    }, 1000);
+}
+
+function startWarningCountdown() {
+    var minutes = 50; //var minutes = 50;
+    var seconds = 0;
+    var totalSeconds = minutes * 60 + seconds;
+
+    var interval = setInterval(function () {
+        seconds--;
+        if (seconds < 0) {
+            minutes--;
+            seconds = 59;
+        }
+
+        if (minutes < 0) {
+            clearInterval(interval);
+            alert("50 minutes have passed! You have 10 minutes to finish the task! If you do not finish in time, your answers will not be used and you will not be paid.");
+        }
+    }, 1000);
+}
+
+function startFailedCountdown() {
+    var minutes = 60; //var minutes = 60;
+    var seconds = 0;
+    var totalSeconds = minutes * 60 + seconds;
+
+    var interval = setInterval(function() {
+        seconds--;
+        if (seconds < 0) {
+            minutes--;
+            seconds = 59;
+        }
+
+        if (minutes < 0) {
+            clearInterval(interval);
+            alert("The allocated time for this task has passed. Your answers will not be used and you will not be paid. Redirecting to Prolific...");
+
+            // Redirect the worker to the Prolific app: https://app.prolific.com/
+            window.location.href = "https://app.prolific.co/";
+        }
+    }, 1000);
+}
 
 function overrideNext() {
 
@@ -564,6 +625,11 @@ function dev() {
 
         showPage(currentPage);
         updateButtons();
+
+        startNoticeCountdown();
+        startWarningCountdown();
+        startFailedCountdown();
+
     </script>
 </body>
 </html>
