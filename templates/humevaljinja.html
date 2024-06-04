@@ -537,6 +537,7 @@
                 const result = await response.json();
                 console.log(result);
                 alert('Form submitted successfully');
+                window.location.href = "https://app.prolific.com/submissions/complete?cc=CDDAJBX8";
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
                 alert('Form submission failed');
