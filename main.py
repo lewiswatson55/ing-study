@@ -24,7 +24,7 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
 CHECK_TIME = 30  # Time in seconds between checks for abandoned tasks - 1 hour = 3600 seconds
 
 TEMPLATE = "humevaljinja.html"
-DATA = "e2e-humeval4.csv"
+DATA = "e2e-humeval.csv"
 #DATA = "example-for-lewis.csv"
 NUMOFITEMS = 30
 # Load the data from the csv file into a pandas dataframe
@@ -89,7 +89,7 @@ def index():
 
         return {"result":"OK"}, 200
     else:
-        return "Nothing Here.", 200
+        return {"Nothing Here.":"ok."}, 200
 
 
 @app.route('/eval')
