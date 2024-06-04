@@ -22,8 +22,9 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
                  # NOTE: If you do not want to expire tasks, set this to a very large number, 0 will not work.
 
 TEMPLATE = "humevaljinja.html"
-DATA = "example-for-lewis.csv"
-
+DATA = "e2e-humeval3.csv"
+#DATA = "example-for-lewis.csv"
+NUMOFITEMS = 28
 # Load the data from the csv file into a pandas dataframe
 df = pd.read_csv(DATA)
 # Create a list of the column names in the csv file
@@ -118,7 +119,7 @@ def e(row_id):
     row = df.iloc[row_id]
     items = []
     print("Row length " + str(len(row)))
-    for i in range(1, 6):  # Adjust the range based on the maximum number of items
+    for i in range(1, NUMOFITEMS+1):  # Adjust the range based on the maximum number of items
         item_input_key = f'item{i}_input'
         if item_input_key in row:
             triples = split_input(row[item_input_key])
@@ -126,6 +127,8 @@ def e(row_id):
                 'triples': triples,
                 'text': row[f'item{i}_text']
             })
+        else:
+            print(f"item {item_input_key} not found in row {row_id}... skipping.")
     # print(items)
     # print(len(items))
     return render_template(TEMPLATE, items=items)

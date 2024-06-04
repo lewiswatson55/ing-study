@@ -244,113 +244,109 @@
 </div>
 
 
-        <!-- Pages for each item in the dataset -->
-        {% for item in items %}
-        <!-- okay so this seems weird, we have +3 because we start at 0 for the index, then we have 1 for the consent page, 1 for the example page - totalling +3 to here -->
-        <div id="page{{ loop.index + 2 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
-            <h2 class="text-2xl font-semibold mb-4">Task {{ loop.index }}</h2>
-            <p>Please read the following input and output and rate its fluency on a 7-point Likert scale. Additionally, indicate if any part is missing or incorrect in the output.</p>
-            <div class="mt-4">
-                <div class="mb-4">
-                    <p class="font-semibold">Input:</p>
-                    {% for triple in item.triples %}
-                    <div class="flex space-x-4 ">
-                        <p class="bg-gray-100 p-2 rounded-md">{{ triple[0] }}</p>
-                        <p class="bg-gray-100 p-2 rounded-md">{{ triple[1] }}</p>
-                        <p class="bg-gray-100 p-2 rounded-md">{{ triple[2] }}</p>
-                    </div>
-                        <br>
-
+{% for item in items %}
+<div id="page{{ loop.index + 2 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
+    <h2 class="text-2xl font-semibold mb-4">Task {{ loop.index }}</h2>
+    {% set currentTask = loop.index %}
+    <p>Please read the following input and output and rate its fluency on a 7-point Likert scale. Additionally, indicate if any part is missing or incorrect in the output.</p>
+    <div class="mt-4">
+        <div class="mb-4">
+            <p class="font-semibold">Input:</p>
+            {% for triple in item.triples %}
+            <div class="flex space-x-4">
+                <p class="bg-gray-100 p-2 rounded-md">{{ triple[0] }}</p>
+                <p class="bg-gray-100 p-2 rounded-md">{{ triple[1] }}</p>
+                <p class="bg-gray-100 p-2 rounded-md">{{ triple[2] }}</p>
+            </div>
+            <br>
+            {% endfor %}
+            <p class="font-semibold mt-4">Output:</p>
+            <p class="bg-gray-100 p-2 rounded-md">{{ item.text }}</p>
+            <br>
+            <p class="text-xl font-semibold"> Task Questions: </p>
+            <fieldset class="mt-4">
+                <p class="font-semibold text-lg">Question 1: The output text flows naturally and is easy to understand.</p>
+                <div class="flex justify-between items-center w-full p-2 bg-gray-200 rounded-md">
+                    {% for i in range(1, 8) %}
+                    <label class="flex-1 flex items-center justify-center">
+                        <input type="radio" class="form-radio" name="task{{ currentTask }}_fluency" value="{{ i }}">
+                        <span class="ml-2">{{ 'Strongly Disagree' if i == 1 else 'Disagree' if i == 2 else 'Somewhat Disagree' if i == 3 else 'Neutral' if i == 4 else 'Somewhat Agree' if i == 5 else 'Agree' if i == 6 else 'Strongly Agree' }}</span>
+                    </label>
                     {% endfor %}
-                    <p class="font-semibold mt-4">Output:</p>
-                    <p class="bg-gray-100 p-2 rounded-md">{{ item.text }}</p>
-                    <br>
-                    <p class="text-xl font-semibold"> Task Questions: </p>
-                    <fieldset class="mt-4">
-                        <p class="font-semibold text-lg">Question 1: The output text flows naturally and is easy to understand.</p>
-                        <div class="flex justify-between items-center w-full p-2 bg-gray-200 rounded-md">
-                            {% for i in range(1, 8) %}
-                            <label class="flex-1 flex items-center justify-center">
-                                <input type="radio" class="form-radio" name="task{{ loop.index + 1 }}_fluency" value="{{ i }}">
-                                <span class="ml-2">{{ 'Strongly Disagree' if i == 1 else 'Disagree' if i == 2 else 'Somewhat Disagree' if i == 3 else 'Neutral' if i == 4 else 'Somewhat Agree' if i == 5 else 'Agree' if i == 6 else 'Strongly Agree' }}</span>
-                            </label>
-                            {% endfor %}
-                        </div>
-                    </fieldset>
-                    <br>
-                    <div class="mt-4">
-                    <label for="task{{ loop.index + 1 }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part is missing or incorrect in the output:</label>
-                    <table class="w-full mt-2 border border-gray-300 rounded-md">
-                        <thead>
-                            <tr>
-                                <th class="border px-4 py-2">Part</th>
-                                <th class="border px-4 py-2">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for triple in item.triples %}
-                            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
-                                <td class="border px-4 py-2">{{ triple[0] }}</td>
-                                <td class="border px-4 py-2">
-                                    <select name="task{{ loop.index + 1 }}_part{{ loop.index0 * 3 + 1 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
-                                        <option value="" selected disabled>Select status</option>
-                                        <option value="present">Present</option>
-                                        <option value="missing">Missing</option>
-                                        <option value="incorrect">Incorrect</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
-                                <td class="border px-4 py-2">{{ triple[1] }}</td>
-                                <td class="border px-4 py-2">
-                                    <select name="task{{ loop.index + 1 }}_part{{ loop.index0 * 3 + 2 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
-                                        <option value="" selected disabled>Select status</option>
-                                        <option value="present">Present</option>
-                                        <option value="missing">Missing</option>
-                                        <option value="incorrect">Incorrect</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
-                                <td class="border px-4 py-2">{{ triple[2] }}</td>
-                                <td class="border px-4 py-2">
-                                    <select name="task{{ loop.index + 1 }}_part{{ loop.index0 * 3 + 3 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
-                                        <option value="" selected disabled>Select status</option>
-                                        <option value="present">Present</option>
-                                        <option value="missing">Missing</option>
-                                        <option value="incorrect">Incorrect</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            {% if not loop.last %}
-                                <tr class="divider-row"></tr>
-                            {% endif %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
                 </div>
-                    <br>
-                    <div class="mt-4">
-                        <label for="task{{ loop.index + 1 }}_extra_info" class="block font-semibold text-lg">Question 3: Was any extra information in the output that was not in the input?</label>
-                        <div class="flex space-x-4 mt-2">
-                            <label class="flex items-center">
-                                <input type="radio" class="form-radio" name="task{{ loop.index + 1 }}_extra_info" value="yes">
-                                <span class="ml-2">Yes</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="radio" class="form-radio" name="task{{ loop.index + 1 }}_extra_info" value="no">
-                                <span class="ml-2">No</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <label for="task{{ loop.index + 1 }}_added_info" class="block font-semibold text-lg">If yes, describe what was added:</label>
-                        <textarea id="task{{ loop.index + 1 }}_added_info" name="task{{ loop.index + 1 }}_added_info" class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Describe the additional information here..."></textarea>
-                    </div>
+            </fieldset>
+            <br>
+            <div class="mt-4">
+                <label for="task{{ loop.index }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part is missing or incorrect in the output:</label>
+                <table class="w-full mt-2 border border-gray-300 rounded-md">
+                    <thead>
+                        <tr>
+                            <th class="border px-4 py-2">Part</th>
+                            <th class="border px-4 py-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for triple in item.triples %}
+                        <tr>
+                            <td class="border px-4 py-2">{{ triple[0] }}</td>
+                            <td class="border px-4 py-2">
+                                <select name="task{{ currentTask }}_part{{ loop.index0 * 3 + 0 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="" selected disabled>Select status</option>
+                                    <option value="present">Present</option>
+                                    <option value="missing">Missing</option>
+                                    <option value="incorrect">Incorrect</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border px-4 py-2">{{ triple[1] }}</td>
+                            <td class="border px-4 py-2">
+                                <select name="task{{ currentTask }}_part{{ loop.index0 *3 + 1 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="" selected disabled>Select status</option>
+                                    <option value="present">Present</option>
+                                    <option value="missing">Missing</option>
+                                    <option value="incorrect">Incorrect</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border px-4 py-2">{{ triple[2] }}</td>
+                            <td class="border px-4 py-2">
+                                <select name="task{{ currentTask }}_part{{ loop.index0 *3 + 2 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="" selected disabled>Select status</option>
+                                    <option value="present">Present</option>
+                                    <option value="missing">Missing</option>
+                                    <option value="incorrect">Incorrect</option>
+                                </select>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="mt-4">
+                <label for="task{{ currentTask }}_extra_info" class="block font-semibold text-lg">Question 3: Was any extra information in the output that was not in the input?</label>
+                <div class="flex space-x-4 mt-2">
+                    <label class="flex items-center">
+                        <input type="radio" class="form-radio" name="task{{ currentTask }}_extra_info" value="yes">
+                        <span class="ml-2">Yes</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" class="form-radio" name="task{{ currentTask }}_extra_info" value="no">
+                        <span class="ml-2">No</span>
+                    </label>
                 </div>
             </div>
+            <div class="mt-4">
+                <label for="task{{ currentTask }}_added_info" class="block font-semibold text-lg">If yes, describe what was added:</label>
+                <textarea id="task{{ currentTask }}_added_info" name="task{{ currentTask }}_added_info" class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Describe the additional information here..."></textarea>
+            </div>
         </div>
-        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
 
         <!-- Page for submission -->
         <div id="page{{ items|length + 3 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
@@ -363,6 +359,7 @@
     <footer class="fixed bottom-0 w-full bg-gray-800 text-white">
         <div class="container mx-auto py-4 flex justify-between items-center">
             <button id="backButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="goBack()">Back</button>
+            <button id="overrideButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hidden" onclick="overrideNext()">Dev</button>
             <button id="nextButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled" onclick="goNext()" disabled>Next</button>
         </div>
     </footer>
@@ -403,6 +400,37 @@
             }
         }
 
+        // Check if the current page is filled
+        function isPageFilled(pageNumber) {
+            if (pageNumber === 1) {
+                return document.getElementById('consentYes').checked;
+            } else if (pageNumber === 2 || pageNumber === totalPages) {
+                return true;
+            }
+
+            pageNumber -= 2; // Adjust for the page offset
+            const fluencyRating = document.querySelector(`input[name="task${pageNumber}_fluency"]:checked`);
+            if (!fluencyRating) return false;
+
+            let partIndex = 0;
+            while (true) {
+                const partStatus = document.querySelector(`select[name="task${pageNumber}_part${partIndex}_status"]`);
+                if (!partStatus) break;
+                if (!partStatus.value) return false;
+                partIndex++;
+            }
+
+            const extraInfo = document.querySelector(`input[name="task${pageNumber}_extra_info"]:checked`);
+            if (!extraInfo) return false;
+
+            if (extraInfo.value === 'yes') {
+                const addedInfo = document.querySelector(`textarea[name="task${pageNumber}_added_info"]`);
+                if (!addedInfo || !addedInfo.value.trim()) return false;
+            }
+
+            return true;
+        }
+
 
         function goBack() {
             if (currentPage > 1) {
@@ -413,16 +441,22 @@
         }
 
         function goNext() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                showPage(currentPage);
-            } else if (currentPage === totalPages) {
-                submitForm();
+            if (isPageFilled(currentPage)) {
+                console.log("Page " + currentPage + " is validated.");
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showPage(currentPage);
+                } else if (currentPage === totalPages) {
+                    submitForm();
+                }
+                updateButtons();
+            } else {
+                alert('Please fill in all the required questions before proceeding to the next page.');
             }
-            updateButtons();
         }
 
         function updateButtons() {
+            console.log(`Current page: ${currentPage}, Total pages: ${totalPages}, button is disabled: ${currentPage === 1}`)
             document.getElementById('backButton').disabled = currentPage === 1;
             document.getElementById('backButton').classList.toggle('disabled', currentPage === 1);
             const nextButton = document.getElementById('nextButton');
@@ -435,32 +469,61 @@
             }
         }
 
+        function submitForm() {
+    const responses = {};
+    const totalTasks = {{ items|length }}; // Total number of tasks, replace {{ items|length }} with the actual number if not dynamically rendering
 
-function submitForm() {
-            const results = {};
+    for (let task = 1; task <= totalTasks; task++) {
+        const taskResponses = {};
 
-            for (let i = 1; i <= totalPages - 3; i++) {
-                const selectedValue = document.querySelector(`input[name="task${i}_fluency"]:checked`)?.value;
-                const part1Status = document.querySelector(`select[name="task${i}_part1_status"]`)?.value || null;
-                const part2Status = document.querySelector(`select[name="task${i}_part2_status"]`)?.value || null;
-                const part3Status = document.querySelector(`select[name="task${i}_part3_status"]`)?.value || null;
-                const extraInfo = document.querySelector(`input[name="task${i}_extra_info"]:checked`)?.value || null;
-                const addedInfo = document.querySelector(`textarea[name="task${i}_added_info"]`)?.value || null;
+        // Collect fluency rating
+        const fluencyRating = document.querySelector(`input[name="task${task}_fluency"]:checked`);
+        taskResponses.fluency = fluencyRating ? fluencyRating.value : null;
 
-                results[`task${i}`] = {
-                    fluency: selectedValue || null,
-                    parts: {
-                        part1: part1Status,
-                        part2: part2Status,
-                        part3: part3Status
-                    },
-                    extraInfo: extraInfo,
-                    addedInfo: addedInfo
-                };
+        // Collect parts status
+        taskResponses.parts = [];
+        let partIndex = 0;
+        while (true) {
+            const partStatus = document.querySelector(`select[name="task${task}_part${partIndex}_status"]`);
+            if (!partStatus) break;
+            taskResponses.parts.push(partStatus.value);
+            partIndex++;
+        }
+
+        // Collect extra info
+        const extraInfo = document.querySelector(`input[name="task${task}_extra_info"]:checked`);
+        taskResponses.extraInfo = extraInfo ? extraInfo.value : null;
+
+        // Collect added info
+        const addedInfo = document.querySelector(`textarea[name="task${task}_added_info"]`);
+        taskResponses.addedInfo = addedInfo ? addedInfo.value : null;
+
+        responses[`task${task}`] = taskResponses;
+    }
+
+    // Print the JSON variable
+    alert(JSON.stringify(responses, null, 2));
+    console.log(JSON.stringify(responses, null, 2));
+}
+
+function overrideNext() {
+
+            document.getElementById('nextButton').classList.remove('disabled');
+            document.getElementById('nextButton').disabled = false;
+
+            if (currentPage === totalPages) {
+                submitForm();
+                return;
             }
 
-            alert(JSON.stringify(results));
-        }
+            currentPage++;
+            showPage(currentPage);
+            updateButtons();
+}
+
+function dev() {
+    document.getElementById('overrideButton').classList.remove('hidden');
+}
 
         showPage(currentPage);
         updateButtons();
