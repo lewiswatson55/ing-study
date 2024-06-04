@@ -213,12 +213,15 @@ def results(task_id):
 # The route is set up for testing to manually check for abandoned tasks. It will return a list of abandoned tasks that have been opened up again.
 @app.route('/abdn')
 def check_abandonment():
-    print("Checking for abandoned tasks...")
-    dm.expire_tasks(MAX_TIME) # Do not update MAX_TIME manually, use MAX_TIME variable
+    password = request.args.get('password')
+    if password != PASSWORD:
+        abort(403)  # Forbidden
 
+    print("Force checking for abandoned tasks...")
+    dm.expire_tasks(MAX_TIME)  # Do not update MAX_TIME manually, use MAX_TIME variable
     tasks = dm.get_all_tasks()
+    return jsonify(tasks)
 
-    return tasks, 200
 
 # Scheduler
 
