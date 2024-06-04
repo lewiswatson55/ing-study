@@ -89,7 +89,7 @@ def index():
 
         return {"result":"OK"}, 200
     else:
-        return {"Nothing Here.":"ok."}, 200
+        return "Nothing Here.", 200
 
 
 @app.route('/eval')
