@@ -697,8 +697,8 @@
             }
         }
 
-        async function submitForm(event) {
-            event.preventDefault();
+        async function submitForm(event){
+            if (event) event.preventDefault();
 
             const responses = {};
             const totalTasks = {{ items|length }}; // Total number of tasks

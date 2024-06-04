@@ -24,7 +24,7 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
 CHECK_TIME = 30  # Time in seconds between checks for abandoned tasks - 1 hour = 3600 seconds
 
 TEMPLATE = "humevaljinja.html"
-DATA = "e2e-humeval3.csv"
+DATA = "e2e-humeval.csv"
 #DATA = "example-for-lewis.csv"
 NUMOFITEMS = 28
 # Load the data from the csv file into a pandas dataframe
@@ -60,6 +60,7 @@ def preprocess_html(html_content, df, task_id=-1):
 # This is the index route, which will just say nothing here. If it gets a POST request, it will save the HIT response JSON to a file.
 # NOTE: The HTML interfaces should be updated with a button that compiles the answers as a JSON object and POSTS to this app.
 # TODO: Validate submission is JSON and has required fields (task_id, prolific_pid, etc) else could crash
+@app.route('/inlg', methods=['POST'])
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
