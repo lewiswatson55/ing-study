@@ -634,9 +634,14 @@
 
             let partIndex = 0;
             while (true) {
-                const partStatus = document.querySelector(`select[name="task${pageNumber}_part${partIndex}_status"]`);
-                if (!partStatus) break;
-                if (!partStatus.value) return false;
+                const presentRadio = document.querySelector(`input[name="task${pageNumber}_part${partIndex}_status"][value="present"]`);
+                const missingRadio = document.querySelector(`input[name="task${pageNumber}_part${partIndex}_status"][value="missing"]`);
+                const incorrectRadio = document.querySelector(`input[name="task${pageNumber}_part${partIndex}_status"][value="incorrect"]`);
+
+                if (!presentRadio && !missingRadio && !incorrectRadio) break;
+
+                if (!presentRadio.checked && !missingRadio.checked && !incorrectRadio.checked) return false;
+
                 partIndex++;
             }
 
