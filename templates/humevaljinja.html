@@ -290,7 +290,7 @@
                     </thead>
                     <tbody>
                         {% for triple in item.triples %}
-                        <tr>
+                        <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
                             <td class="border px-4 py-2">{{ triple[0] }}</td>
                             <td class="border px-4 py-2">
                                 <select name="task{{ currentTask }}_part{{ loop.index0 * 3 + 0 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
@@ -301,7 +301,7 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
                             <td class="border px-4 py-2">{{ triple[1] }}</td>
                             <td class="border px-4 py-2">
                                 <select name="task{{ currentTask }}_part{{ loop.index0 *3 + 1 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
@@ -312,7 +312,7 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
                             <td class="border px-4 py-2">{{ triple[2] }}</td>
                             <td class="border px-4 py-2">
                                 <select name="task{{ currentTask }}_part{{ loop.index0 *3 + 2 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
@@ -323,6 +323,9 @@
                                 </select>
                             </td>
                         </tr>
+                            {% if not loop.last %}
+                                <tr class="divider-row"></tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
