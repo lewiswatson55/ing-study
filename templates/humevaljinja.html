@@ -279,57 +279,55 @@
                 </div>
             </fieldset>
             <br>
-            <div class="mt-4">
-                <label for="task{{ loop.index }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part is missing or incorrect in the output:</label>
-                <table class="w-full mt-2 border border-gray-300 rounded-md">
-                    <thead>
-                        <tr>
-                            <th class="border px-4 py-2">Part</th>
-                            <th class="border px-4 py-2">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for triple in item.triples %}
-                        <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
-                            <td class="border px-4 py-2">{{ triple[0] }}</td>
-                            <td class="border px-4 py-2">
-                                <select name="task{{ currentTask }}_part{{ loop.index0 * 3 + 0 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
-                                    <option value="" selected disabled>Select status</option>
-                                    <option value="present">Present</option>
-                                    <option value="missing">Missing</option>
-                                    <option value="incorrect">Incorrect</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
-                            <td class="border px-4 py-2">{{ triple[1] }}</td>
-                            <td class="border px-4 py-2">
-                                <select name="task{{ currentTask }}_part{{ loop.index0 *3 + 1 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
-                                    <option value="" selected disabled>Select status</option>
-                                    <option value="present">Present</option>
-                                    <option value="missing">Missing</option>
-                                    <option value="incorrect">Incorrect</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
-                            <td class="border px-4 py-2">{{ triple[2] }}</td>
-                            <td class="border px-4 py-2">
-                                <select name="task{{ currentTask }}_part{{ loop.index0 *3 + 2 }}_status" class="w-full p-2 border border-gray-300 rounded-md">
-                                    <option value="" selected disabled>Select status</option>
-                                    <option value="present">Present</option>
-                                    <option value="missing">Missing</option>
-                                    <option value="incorrect">Incorrect</option>
-                                </select>
-                            </td>
-                        </tr>
-                            {% if not loop.last %}
-                                <tr class="divider-row"></tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<div class="mt-4">
+    <label for="task{{ loop.index }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part is missing or incorrect in the output:</label>
+    <table class="w-full mt-2 border border-gray-300 rounded-md">
+        <thead>
+            <tr>
+                <th class="border px-4 py-2">Part</th>
+                <th class="border px-4 py-2">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for triple in item.triples %}
+            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
+                <td class="border px-4 py-2">{{ triple[0] }}</td>
+                <td class="border px-4 py-2">
+                    <div class="flex justify-around">
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 0 }}_status" value="present"> Present</label>
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 0 }}_status" value="missing"> Missing</label>
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 0 }}_status" value="incorrect"> Incorrect</label>
+                    </div>
+                </td>
+            </tr>
+            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
+                <td class="border px-4 py-2">{{ triple[1] }}</td>
+                <td class="border px-4 py-2">
+                    <div class="flex justify-around">
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 1 }}_status" value="present"> Present</label>
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 1 }}_status" value="missing"> Missing</label>
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 1 }}_status" value="incorrect"> Incorrect</label>
+                    </div>
+                </td>
+            </tr>
+            <tr class="{% if loop.index0 % 2 == 0 %}row-set-1{% else %}row-set-2{% endif %}">
+                <td class="border px-4 py-2">{{ triple[2] }}</td>
+                <td class="border px-4 py-2">
+                    <div class="flex justify-around">
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 2 }}_status" value="present"> Present</label>
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 2 }}_status" value="missing"> Missing</label>
+                        <label><input type="radio" name="task{{ currentTask }}_part{{ loop.index0 * 3 + 2 }}_status" value="incorrect"> Incorrect</label>
+                    </div>
+                </td>
+            </tr>
+            {% if not loop.last %}
+                <tr class="divider-row"></tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
             <br>
             <div class="mt-4">
                 <label for="task{{ currentTask }}_extra_info" class="block font-semibold text-lg">Question 3: Was any extra information in the output that was not in the input?</label>
@@ -370,6 +368,7 @@
     <footer class="fixed bottom-0 w-full bg-gray-800 text-white">
         <div class="container mx-auto py-4 flex justify-between items-center">
             <button id="backButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="goBack()">Back</button>
+            <span id="taskIndicator" class="text-white ml-4"></span>
             <button id="overrideButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hidden" onclick="overrideNext()">Dev</button>
             <button id="nextButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled" onclick="goNext()" disabled>Next</button>
         </div>
@@ -457,6 +456,7 @@
                 if (currentPage < totalPages) {
                     currentPage++;
                     showPage(currentPage);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else if (currentPage === totalPages) {
                     submitForm();
                 }
@@ -478,6 +478,13 @@
                 nextButton.innerText = 'Next';
                 nextButton.onclick = goNext;
             }
+
+            // Update the task indicator, don't update for consent or example pages
+            if (currentPage > 2 && currentPage < totalPages) {
+                document.getElementById('taskIndicator').innerText = `Task ${currentPage - 2} of ${totalPages - 3}`;
+            } else {
+                document.getElementById('taskIndicator').innerText = '';
+            }
         }
 
         async function submitForm(event) {
@@ -497,11 +504,25 @@
                 taskResponses.parts = [];
                 let partIndex = 0;
                 while (true) {
-                    const partStatus = document.querySelector(`select[name="task${task}_part${partIndex}_status"]`);
-                    if (!partStatus) break;
-                    taskResponses.parts.push(partStatus.value);
+                    const presentRadio = document.querySelector(`input[name="task${task}_part${partIndex}_status"][value="present"]`);
+                    const missingRadio = document.querySelector(`input[name="task${task}_part${partIndex}_status"][value="missing"]`);
+                    const incorrectRadio = document.querySelector(`input[name="task${task}_part${partIndex}_status"][value="incorrect"]`);
+
+                    if (!presentRadio && !missingRadio && !incorrectRadio) break;
+
+                    if (presentRadio.checked) {
+                        taskResponses.parts.push('present');
+                    } else if (missingRadio.checked) {
+                        taskResponses.parts.push('missing');
+                    } else if (incorrectRadio.checked) {
+                        taskResponses.parts.push('incorrect');
+                    } else {
+                        taskResponses.parts.push(''); // in case no radio button is selected
+                    }
+
                     partIndex++;
                 }
+
 
                 // Collect extra info
                 const extraInfo = document.querySelector(`input[name="task${task}_extra_info"]:checked`);
@@ -519,6 +540,8 @@
             responses.session_id = document.getElementById('session_id').value;
             responses.study_id = document.getElementById('study_id').value;
             responses.task_id = document.getElementById('task_id').value;
+
+            console.log(responses);
 
             // Post the JSON to the server
             try {
