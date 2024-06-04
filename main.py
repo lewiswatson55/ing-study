@@ -5,7 +5,7 @@
 # There can be multiple variables - which should be defined in the python code to match the variable names in the csv file.
 import json
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, render_template_string
+from flask import Flask, render_template, request, redirect, url_for, render_template_string, abort, jsonify
 import csv
 import pandas as pd
 import re
@@ -23,6 +23,7 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
 
 CHECK_TIME = 30  # Time in seconds between checks for abandoned tasks - 1 hour = 3600 seconds
 
+PASSWORD = "password"  # Password for the /tasksallocated route
 TEMPLATE = "humevaljinja.html"
 DATA = "e2e-humeval.csv"
 #DATA = "example-for-lewis.csv"
@@ -191,11 +192,13 @@ def study():
 
 # This route is used for testing - it will return the tasks dictionary showing the number of participants assigned to each task
 @app.route('/tasksallocated')
-def aloced():
+def allocated():
+    password = request.args.get('password')
+    if password != PASSWORD:
+        abort(403)  # Forbidden
 
     tasks = dm.get_all_tasks()
-
-    return tasks
+    return jsonify(tasks)
 
 # Show a specific task_id's result in the database
 @app.route('/results/<task_id>')
