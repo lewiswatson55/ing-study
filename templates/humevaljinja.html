@@ -247,8 +247,203 @@
 </div>
 
 
+<div id="page3" class="bg-white rounded-lg shadow-md p-6 hidden">
+    <h2 class="text-2xl font-semibold mb-4">Examples and Instructions (continued)</h2>
+    <p>This example shows what an input with more parts looks like.</p>
+    <div class="mt-4">
+        <p class="font-semibold">Input:</p>
+        <p class="mt-4">For example, the input could be:</p>
+        <div class="flex space-x-4 mt-2">
+            <p class="bg-gray-100 p-2 rounded-md">Bonnie Burrito</p>
+            <p class="bg-gray-100 p-2 rounded-md">cuisine</p>
+            <p class="bg-gray-100 p-2 rounded-md">Mexican</p>
+        </div>
+        <div class="flex space-x-4 mt-2">
+            <p class="bg-gray-100 p-2 rounded-md">Bonnie Burrito</p>
+            <p class="bg-gray-100 p-2 rounded-md">location</p>
+            <p class="bg-gray-100 p-2 rounded-md">Edinburgh</p>
+        </div>    
+        <div class="flex space-x-4 mt-2">
+            <p class="bg-gray-100 p-2 rounded-md">Edinburgh</p>
+            <p class="bg-gray-100 p-2 rounded-md">is the capital of</p>
+            <p class="bg-gray-100 p-2 rounded-md">Scotland</p>
+        </div>
+    </div>
+    <div class="mt-4">
+        <p class="font-semibold">Output:</p>
+        <p class="bg-gray-100 p-2 rounded-md">Bonnie Burrito serves French food in Edinburgh. Edinburgh is the prime minister for Scotland.</p>
+    </div>
+    <div class="mt-4">
+        <p>For example, the text above is generally fluent, but feels off because it names a city as a prime minister. For fluency, we're less interested in accuracy and more interested in the way the text flows, though, so this is still "Somewhat Fluent".</p>
+        <p class="font-semibold text-lg">Question 1: Fluency assessment: please rate the Output in terms of Fluency. Highly fluent text 'flows well' and is well-connected and free from disfluencies.</p>
+        <div class="flex justify-between items-center w-full p-2 bg-gray-200 rounded-md">
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="1">
+                <span class="ml-2">Very Disfluent</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="2">
+                <span class="ml-2">Disfluent</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="3">
+                <span class="ml-2">Somewhat Disfluent</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="4">
+                <span class="ml-2">Neither fluent nor disfluent</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="5">
+                <span class="ml-2">Somewhat Fluent</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="6">
+                <span class="ml-2">Fluent</span>
+            </label>
+            <label class="flex-1 flex items-center justify-center">
+                <input type="radio" class="form-radio" name="example_fluency2" value="7">
+                <span class="ml-2">Very Fluent</span>
+            </label>
+        </div>
+    </div>
+    <p>For this example, we have a couple of errors. First, the value for cuisine is wrong (the text says French instead of Mexican), and the Relation is wrong for the last fact: instead of expressing that the capital of Scotland is Edinburgh, the text claims that Edinburgh is the prime minister of Scotland. Both of these should be marked as Incorrect below.</p>
+    <div class="mt-4">
+        <p class="font-semibold">Part Status:</p>
+        <p>Identify if any part is missing or incorrect in the output. For example:</p>
+        <table class="w-full mt-2 border border-gray-300 rounded-md">
+            <thead>
+                <tr>
+                    <th class="border px-4 py-2">Part</th>
+                    <th class="border px-4 py-2">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">Bonnie Burrito</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part1_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">cuisine</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part2_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Mexican</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part3_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row-set-2">
+                    <td class="border px-4 py-2">Bonnie Burrito</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part4_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">location</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part5_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Edinburgh</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part6_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Edinburgh</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part7_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">is the capital of</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part8_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Scotland</td>
+                    <td class="border px-4 py-2">
+                        <select name="example2_part9_status" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="" selected disabled>Select status</option>
+                            <option value="present">Present</option>
+                            <option value="missing">Missing</option>
+                            <option value="incorrect">Incorrect</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Finally, you will need to let us know if any information which was not present in the Input was included in the Output. In this example, the answer is "yes" because the fact that Paris is home to the Eiffel tower (la Tour Eiffel) is not a part of the input. Please check yes and state what was added.</p>
+    <div class="mt-4">
+        <p class="font-semibold">Extra Information:</p>
+        <p>Identify if there is any extra information in the output that was not in the input. For example, this is where we note that "Home of La Tour Eiffel." was not in the input.</p>
+        <div class="flex space-x-4 mt-2">
+            <label class="flex items-center">
+                <input type="radio" class="form-radio" name="example_extra_info2" value="yes">
+                <span class="ml-2">Yes</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" class="form-radio" name="example_extra_info2" value="no">
+                <span class="ml-2">No</span>
+            </label>
+        </div>
+        <div class="mt-4">
+            <label for="example_added_info" class="block font-semibold">If yes, describe what was added:</label>
+            <textarea id="example_added_info" name="example_added_info2" class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Describe the additional information here..."></textarea>
+        </div>
+    </div>
+</div>
+
 {% for item in items %}
-<div id="page{{ loop.index + 2 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
+<div id="page{{ loop.index + 3 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
     <h2 class="text-2xl font-semibold mb-4">Task {{ loop.index }}</h2>
     {% set currentTask = loop.index %}
     <p>Please read the following input and output and rate its fluency on a 7-point Likert scale. Additionally, indicate if any part is missing or incorrect in the output.</p>
