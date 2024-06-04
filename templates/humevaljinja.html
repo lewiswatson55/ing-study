@@ -548,7 +548,7 @@
 
 
         <!-- Page for submission -->
-        <div id="page{{ items|length + 3 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
+        <div id="page{{ items|length + 4 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Submit</h2>
             <p>Thank you for completing the evaluation. Please review your responses and click submit to finish.</p>
             <!-- Hidden input fields for prolific_pid, session_id, study_id, and task_id -->
@@ -572,7 +572,7 @@
     <!-- JavaScript for navigation buttons -->
     <script>
         let currentPage = 1;
-        const totalPages = {{ items|length + 3 }};
+        const totalPages = {{ items|length + 4 }};
 
         document.querySelectorAll('input[name="consent"]').forEach((elem) => {
             elem.addEventListener('change', function() {
@@ -609,11 +609,11 @@
         function isPageFilled(pageNumber) {
             if (pageNumber === 1) {
                 return document.getElementById('consentYes').checked;
-            } else if (pageNumber === 2 || pageNumber === totalPages) {
+            } else if (pageNumber === 2 || pageNumber === 3 || pageNumber === totalPages) {
                 return true;
             }
 
-            pageNumber -= 2; // Adjust for the page offset
+            pageNumber -= 3; // Adjust for the page offset
             const fluencyRating = document.querySelector(`input[name="task${pageNumber}_fluency"]:checked`);
             if (!fluencyRating) return false;
 
@@ -675,8 +675,8 @@
             }
 
             // Update the task indicator, don't update for consent or example pages
-            if (currentPage > 2 && currentPage < totalPages) {
-                document.getElementById('taskIndicator').innerText = `Task ${currentPage - 2} of ${totalPages - 3}`;
+            if (currentPage > 3 && currentPage < totalPages) {
+                document.getElementById('taskIndicator').innerText = `Task ${currentPage - 3} of ${totalPages - 4}`;
             } else {
                 document.getElementById('taskIndicator').innerText = '';
             }
