@@ -247,7 +247,7 @@
 
 <div id="page3" class="bg-white rounded-lg shadow-md p-6 hidden">
     <h2 class="text-2xl font-semibold mb-4">Examples and Instructions (continued)</h2>
-    <p>This example shows what an input with more parts looks like.</p>
+    <p>This example shows what an input with more parts looks like. Like the rest of the texts in this experiment, this text talks about a restaurant.</p>
     <div class="mt-4">
         <p class="font-semibold">Input:</p>
         <p class="mt-4">For example, the input could be:</p>
@@ -412,10 +412,10 @@
             </tbody>
         </table>
     </div>
-    <p>Finally, you will need to let us know if any information which was not present in the Input was included in the Output. In this example, the answer is "yes" because the fact that Paris is home to the Eiffel tower (la Tour Eiffel) is not a part of the input. Please check yes and state what was added.</p>
+    <p>Finally, you will need to let us know if any information which was not present in the Input was included in the Output. In this example, the answer is "no" because the errors are Incorrect values rather than completely new information being added.</p>
     <div class="mt-4">
         <p class="font-semibold">Extra Information:</p>
-        <p>Identify if there is any extra information in the output that was not in the input. For example, this is where we note that "Home of La Tour Eiffel." was not in the input.</p>
+        <p>Identify if there is any extra information in the output that was not in the input.</p>
         <div class="flex space-x-4 mt-2">
             <label class="flex items-center">
                 <input type="radio" class="form-radio" name="example_extra_info2" value="yes">
@@ -438,7 +438,7 @@
 <div id="page{{ loop.index + 3 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
     <h2 class="text-2xl font-semibold mb-4">Task {{ loop.index }}</h2>
     {% set currentTask = loop.index %}
-    <p>Please read the following input and output and rate its fluency on a 7-point Likert scale. Additionally, indicate if any part is missing or incorrect in the output.</p>
+    <p>Please read the following Input and Output and rate the fluency of the Output. Additionally, indicate if any part of the Input is missing or incorrect in the Output and whether or not extra facts have been added that are not present in the Input.</p>
     <div class="mt-4">
         <div class="mb-4">
             <p class="font-semibold">Input:</p>
@@ -490,7 +490,7 @@
 
             <br>
 <div class="mt-4">
-    <label for="task{{ loop.index }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part is missing or incorrect in the output:</label>
+    <label for="task{{ loop.index }}_part_status" class="block font-semibold text-lg">Question 2: Identify if any part of the Input is missing or incorrect in the Output:</label>
     <table class="w-full mt-2 border border-gray-300 rounded-md">
         <thead>
             <tr>
@@ -540,7 +540,7 @@
 
             <br>
             <div class="mt-4">
-                <label for="task{{ currentTask }}_extra_info" class="block font-semibold text-lg">Question 3: Was any extra information in the output that was not in the input?</label>
+                <label for="task{{ currentTask }}_extra_info" class="block font-semibold text-lg">Question 3: Was any extra information in the Output that was not in the Input?</label>
                 <div class="flex space-x-4 mt-2">
                     <label class="flex items-center">
                         <input type="radio" class="form-radio" name="task{{ currentTask }}_extra_info" value="yes">
@@ -565,7 +565,7 @@
         <!-- Page for submission -->
         <div id="page{{ items|length + 4 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Submit</h2>
-            <p>Thank you for completing the evaluation. Please review your responses and click submit to finish.</p>
+            <p>Thank you for completing the evaluation. Please click submit to finish. You should automatically be redirected to Prolific.</p>
             <!-- Hidden input fields for prolific_pid, session_id, study_id, and task_id -->
             <input type="hidden" id="prolific_pid" name="prolific_pid" value="{{ prolific_pid }}">
             <input type="hidden" id="session_id" name="session_id" value="{{ session_id }}">
