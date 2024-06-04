@@ -222,13 +222,17 @@ def check_abandonment():
     tasks = dm.get_all_tasks()
     return jsonify(tasks)
 
+def check_abandonment_auto():
+    print("Checking for abandoned tasks...")
+    dm.expire_tasks(MAX_TIME)  # Do not update MAX_TIME manually, use MAX_TIME variable
+
 
 # Scheduler
 
 # Run the check_abandonment function every hour - this has to be before the app.run() call
 from apscheduler.schedulers.background import BackgroundScheduler
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=check_abandonment, trigger="interval", seconds=CHECK_TIME) # Do not update seconds manually, use MAX_TIME
+scheduler.add_job(func=check_abandonment_auto, trigger="interval", seconds=CHECK_TIME) # Do not update seconds manually, use MAX_TIME
 scheduler.start()
 
 # @app.route('/inlg', methods=['POST'])
