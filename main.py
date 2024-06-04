@@ -17,7 +17,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 import DataManager as dm
 
-MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a participant before it is abandoned - 1 hour = 3600 seconds
+MAX_TIME = 5220  # 5220 = 87 minutes Maximum time in seconds that a task can be assigned to a participant before it is abandoned - 1 hour = 3600 seconds
                  # Should probably note the 1hr limit on the interface/instructions.
                  # NOTE: If you do not want to expire tasks, set this to a very large number, 0 will not work.
 
@@ -225,6 +225,7 @@ def check_abandonment():
 def check_abandonment_auto():
     print("Checking for abandoned tasks...")
     dm.expire_tasks(MAX_TIME)  # Do not update MAX_TIME manually, use MAX_TIME variable
+
 
 
 # Scheduler
