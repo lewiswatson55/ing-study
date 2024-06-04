@@ -21,6 +21,8 @@ MAX_TIME = 3600  # Maximum time in seconds that a task can be assigned to a part
                  # Should probably note the 1hr limit on the interface/instructions.
                  # NOTE: If you do not want to expire tasks, set this to a very large number, 0 will not work.
 
+CHECK_TIME = 3600  # Time in seconds between checks for abandoned tasks - 1 hour = 3600 seconds
+
 TEMPLATE = "humevaljinja.html"
 DATA = "e2e-humeval3.csv"
 #DATA = "example-for-lewis.csv"
@@ -144,10 +146,6 @@ def row(row_id):
     return render_template_string(processed_html)
 
 
-# Study route, get PROLIFIC_PID, STUDY_ID and SESSION_ID from URL parameters
-# This route will assign a task to a participant and return the HTML interface for that task
-# It *should* be updated to allow the participant to continue where they left off if they refresh the page - this will be implemented using the PROLIFIC_PID searching on pending tasks.
-# TODO: Some kind of handling for case where there are no tasks left for that worker - i.e there are tasks left but none that they haven't already completed
 @app.route('/study/')
 def study():
 
@@ -170,17 +168,24 @@ def study():
     if task_id == "Database Error - Please try again, if the problem persists contact us." and task_number == -1:
         return task_id, 500
 
-
     # If no task is available, return a message
     if task_id is None:
         return "No tasks available", 400
 
-    html_content = preprocess_html(html_content, df.iloc[[task_number-1]], task_id) # Params: html_content, df, task_id=-1
-    html_content += f'<input type="hidden" id="prolific_pid" name="prolific_pid" value="{prolific_pid}">\n'
-    html_content += f'<input type="hidden" id="session_id" name="session_id" value="{session_id}">\n'
-    html_content += f'<input type="hidden" id="study_id" name="study_id" value="{session_id}">\n'
-    html_content += f'<input type="hidden" id="task_id" name="task_id" value="{task_id}">\n'
-    return render_template_string(html_content)
+    # Process the task content
+    row = df.iloc[task_number - 1]
+    items = []
+    for i in range(1, NUMOFITEMS + 1):  # Adjust the range based on the maximum number of items
+        item_input_key = f'item{i}_input'
+        if item_input_key in row:
+            triples = split_input(row[item_input_key])
+            items.append({
+                'triples': triples,
+                'text': row[f'item{i}_text']
+            })
+
+    # Render the template with Jinja
+    return render_template(TEMPLATE, items=items, prolific_pid=prolific_pid, session_id=session_id, study_id=study_id, task_id=task_id)
 
 
 # This route is used for testing - it will return the tasks dictionary showing the number of participants assigned to each task
@@ -216,7 +221,7 @@ def check_abandonment():
 # Run the check_abandonment function every hour - this has to be before the app.run() call
 from apscheduler.schedulers.background import BackgroundScheduler
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=check_abandonment, trigger="interval", seconds=MAX_TIME) # Do not update seconds manually, use MAX_TIME
+scheduler.add_job(func=check_abandonment, trigger="interval", seconds=CHECK_TIME) # Do not update seconds manually, use MAX_TIME
 scheduler.start()
 
 

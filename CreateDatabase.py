@@ -2,7 +2,7 @@
 # DO NOT RUN THIS SCRIPT IF THE DATABASE ALREADY EXISTS. IT WILL DELETE THE EXISTING DATABASE AND CREATE A NEW ONE.
 
 COMPLETIONS_PER_TASK = 1  # Number of times each task should be completed by different participants
-NUMBER_OF_TASKS = 60  # Number of tasks to create in the database
+NUMBER_OF_TASKS = 12  # Number of tasks to create in the database
 
 import sqlite3
 from uuid import uuid4

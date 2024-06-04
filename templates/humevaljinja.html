@@ -352,6 +352,11 @@
         <div id="page{{ items|length + 3 }}" class="bg-white rounded-lg shadow-md p-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Submit</h2>
             <p>Thank you for completing the evaluation. Please review your responses and click submit to finish.</p>
+            <!-- Hidden input fields for prolific_pid, session_id, study_id, and task_id -->
+            <input type="hidden" id="prolific_pid" name="prolific_pid" value="{{ prolific_pid }}">
+            <input type="hidden" id="session_id" name="session_id" value="{{ session_id }}">
+            <input type="hidden" id="study_id" name="study_id" value="{{ study_id }}">
+            <input type="hidden" id="task_id" name="task_id" value="{{ task_id }}">
         </div>
     </div>
 
