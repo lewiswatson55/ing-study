@@ -224,11 +224,11 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(func=check_abandonment, trigger="interval", seconds=CHECK_TIME) # Do not update seconds manually, use MAX_TIME
 scheduler.start()
 
-@app.route('/inlg', methods=['POST'])
-def inlg():
-    data = request.get_json()
-    print(data)
-    return {"result":"ok"}, 200
+# @app.route('/inlg', methods=['POST'])
+# def inlg():
+#     data = request.get_json()
+#     print(data)
+#     return {"result":"ok"}, 200
 
 # CLI Entry Point (for testing) - python main.py
 
