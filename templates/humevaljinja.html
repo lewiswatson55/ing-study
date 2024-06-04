@@ -473,42 +473,68 @@
             }
         }
 
-        function submitForm() {
-    const responses = {};
-    const totalTasks = {{ items|length }}; // Total number of tasks, replace {{ items|length }} with the actual number if not dynamically rendering
+        async function submitForm(event) {
+            event.preventDefault();
 
-    for (let task = 1; task <= totalTasks; task++) {
-        const taskResponses = {};
+            const responses = {};
+            const totalTasks = {{ items|length }}; // Total number of tasks
 
-        // Collect fluency rating
-        const fluencyRating = document.querySelector(`input[name="task${task}_fluency"]:checked`);
-        taskResponses.fluency = fluencyRating ? fluencyRating.value : null;
+            for (let task = 1; task <= totalTasks; task++) {
+                const taskResponses = {};
 
-        // Collect parts status
-        taskResponses.parts = [];
-        let partIndex = 0;
-        while (true) {
-            const partStatus = document.querySelector(`select[name="task${task}_part${partIndex}_status"]`);
-            if (!partStatus) break;
-            taskResponses.parts.push(partStatus.value);
-            partIndex++;
+                // Collect fluency rating
+                const fluencyRating = document.querySelector(`input[name="task${task}_fluency"]:checked`);
+                taskResponses.fluency = fluencyRating ? fluencyRating.value : null;
+
+                // Collect parts status
+                taskResponses.parts = [];
+                let partIndex = 0;
+                while (true) {
+                    const partStatus = document.querySelector(`select[name="task${task}_part${partIndex}_status"]`);
+                    if (!partStatus) break;
+                    taskResponses.parts.push(partStatus.value);
+                    partIndex++;
+                }
+
+                // Collect extra info
+                const extraInfo = document.querySelector(`input[name="task${task}_extra_info"]:checked`);
+                taskResponses.extraInfo = extraInfo ? extraInfo.value : null;
+
+                // Collect added info
+                const addedInfo = document.querySelector(`textarea[name="task${task}_added_info"]`);
+                taskResponses.addedInfo = addedInfo ? addedInfo.value : null;
+
+                responses[`task${task}`] = taskResponses;
+            }
+
+            // Collect hidden input values
+            responses.prolific_pid = document.getElementById('prolific_pid').value;
+            responses.session_id = document.getElementById('session_id').value;
+            responses.study_id = document.getElementById('study_id').value;
+            responses.task_id = document.getElementById('task_id').value;
+
+            // Post the JSON to the server
+            try {
+                const response = await fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(responses),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                console.log(result);
+                alert('Form submitted successfully');
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+                alert('Form submission failed');
+            }
         }
-
-        // Collect extra info
-        const extraInfo = document.querySelector(`input[name="task${task}_extra_info"]:checked`);
-        taskResponses.extraInfo = extraInfo ? extraInfo.value : null;
-
-        // Collect added info
-        const addedInfo = document.querySelector(`textarea[name="task${task}_added_info"]`);
-        taskResponses.addedInfo = addedInfo ? addedInfo.value : null;
-
-        responses[`task${task}`] = taskResponses;
-    }
-
-    // Print the JSON variable
-    alert(JSON.stringify(responses, null, 2));
-    console.log(JSON.stringify(responses, null, 2));
-}
 
 function overrideNext() {
 
