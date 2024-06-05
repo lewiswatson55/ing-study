@@ -798,13 +798,13 @@ function startNoticeCountdown() {
 
         if (minutes < 0) {
             clearInterval(interval);
-            alert("The task is expected to take about 30 minutes. You have been working for 25 minutes and the task is available to you for another 35 minutes.");
+            alert("The task is expected to take about 30 minutes. You have been working for 25 minutes and the task is available to you for another 62 minutes.");
         }
     }, 1000);
 }
 
 function startWarningCountdown() {
-    var minutes = 50; //var minutes = 50;
+    var minutes = 77; //var minutes = 50;
     var seconds = 0;
     var totalSeconds = minutes * 60 + seconds;
 
@@ -817,7 +817,7 @@ function startWarningCountdown() {
 
         if (minutes < 0) {
             clearInterval(interval);
-            alert("50 minutes have passed! You have 10 minutes to finish the task! If you do not finish in time, your answers will not be used and you will not be paid.");
+            alert("77 minutes have passed! You have 10 minutes to finish the task! If you do not finish in time, your answers will not be used and you will not be paid.");
         }
     }, 1000);
 }
