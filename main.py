@@ -28,8 +28,6 @@ CHECK_TIME = 30  # Time in seconds between checks for abandoned tasks - 1 hour =
 PASSWORD = "password"  # Password for the /tasksallocated route
 TEMPLATE = "humevaljinja.html"
 DATA = "e2e-humeval.csv"
-STUDY_ID = "SETME"  # Prolific Study ID
-API_KEY = "SETME"  # Prolific API Key
 #DATA = "example-for-lewis.csv"
 NUMOFITEMS = 30
 # Load the data from the csv file into a pandas dataframe
@@ -229,29 +227,7 @@ def check_abandonment():
 def check_abandonment_auto():
     print("Checking for abandoned tasks...")
     dm.expire_tasks(MAX_TIME)  # Do not update MAX_TIME manually, use MAX_TIME variable
-    get_returned_tasks()
 
-
-def get_returned_tasks():
-    try:
-        # Define the endpoint and headers
-        url = f'https://api.prolific.co/api/v1/studies/{STUDY_ID}/submissions/'
-        headers = {
-            'Authorization': f'Token {API_KEY}',
-            'Content-Type': 'application/json'
-        }
-        # Make the GET request to retrieve submissions
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            submissions = response.json()['results']
-            returned_pids = [submission['participant_id'] for submission in submissions if
-                             submission['status'] == 'RETURNED']
-            print("Returned PIDs:", returned_pids)
-            dm.clear_tasks_for_prolific_pids(returned_pids)
-        else:
-            print("Error:", response.status_code, response.text)
-    except Exception as e:
-        print("Error getting returned tasks:", e)
 
 # Scheduler
 
@@ -268,6 +244,25 @@ scheduler.start()
 #     return {"result":"ok"}, 200
 
 # CLI Entry Point (for testing) - python main.py
+
+@app.route('/webhook-handler', methods=['POST'])
+def webhook_handler():
+    try:
+        event = request.json
+        if event and event.get('event') == 'submission.returned':
+            # Extract relevant data from the event
+            returned_submission = event.get('data', {})
+            participant_id = returned_submission.get('participant_id')
+            if participant_id:
+                print("Returned PID:", participant_id)
+                # Clear tasks for the returned participant
+                dm.clear_tasks_for_prolific_pids([participant_id])
+            return jsonify({'status': 'success'}), 200
+        else:
+            return jsonify({'status': 'ignored', 'message': 'No relevant event'}), 200
+    except Exception as e:
+        print("Error handling webhook:", e)
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
