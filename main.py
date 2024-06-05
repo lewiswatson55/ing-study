@@ -5,6 +5,8 @@
 # There can be multiple variables - which should be defined in the python code to match the variable names in the csv file.
 import json
 from datetime import datetime
+
+import requests
 from flask import Flask, render_template, request, redirect, url_for, render_template_string, abort, jsonify
 import csv
 import pandas as pd
@@ -26,6 +28,8 @@ CHECK_TIME = 30  # Time in seconds between checks for abandoned tasks - 1 hour =
 PASSWORD = "password"  # Password for the /tasksallocated route
 TEMPLATE = "humevaljinja.html"
 DATA = "e2e-humeval.csv"
+STUDY_ID = "SETME"  # Prolific Study ID
+API_KEY = "SETME"  # Prolific API Key
 #DATA = "example-for-lewis.csv"
 NUMOFITEMS = 30
 # Load the data from the csv file into a pandas dataframe
@@ -225,8 +229,29 @@ def check_abandonment():
 def check_abandonment_auto():
     print("Checking for abandoned tasks...")
     dm.expire_tasks(MAX_TIME)  # Do not update MAX_TIME manually, use MAX_TIME variable
+    get_returned_tasks()
 
 
+def get_returned_tasks():
+    try:
+        # Define the endpoint and headers
+        url = f'https://api.prolific.co/api/v1/studies/{STUDY_ID}/submissions/'
+        headers = {
+            'Authorization': f'Token {API_KEY}',
+            'Content-Type': 'application/json'
+        }
+        # Make the GET request to retrieve submissions
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            submissions = response.json()['results']
+            returned_pids = [submission['participant_id'] for submission in submissions if
+                             submission['status'] == 'RETURNED']
+            print("Returned PIDs:", returned_pids)
+            dm.clear_tasks_for_prolific_pids(returned_pids)
+        else:
+            print("Error:", response.status_code, response.text)
+    except Exception as e:
+        print("Error getting returned tasks:", e)
 
 # Scheduler
 

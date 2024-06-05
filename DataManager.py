@@ -1,5 +1,8 @@
+import json
+import os
 import sqlite3
 from datetime import datetime
+
 
 # TODO: Race conditions should be investigated - handled by using transactions and locking
 # TODO: What happens when a worker returns results that have not been allocated to them?
@@ -192,6 +195,17 @@ def get_specific_result(result_id):
         print(f"An error occurred: {e}")
         return None
 
+prev_expired_file = 'prev_expired.json'
+if not os.path.exists(prev_expired_file):
+    with open(prev_expired_file, 'w') as f:
+        json.dump([], f)
+
+with open(prev_expired_file, 'r') as f:
+    try:
+        prev_expired = json.load(f)
+    except json.JSONDecodeError:
+        prev_expired = []
+
 def clear_tasks_for_prolific_pids(prolific_pids):
     """
     Clears tasks back to waiting status for tasks associated with the given list of prolific_pids.
@@ -206,7 +220,16 @@ def clear_tasks_for_prolific_pids(prolific_pids):
         with create_connection() as conn:
             cursor = conn.cursor()
             for pid in prolific_pids:
-                cursor.execute("UPDATE tasks SET status='waiting', prolific_id=NULL, time_allocated=NULL, session_id=NULL WHERE prolific_id=?", (pid,))
+                if pid in prev_expired:
+                    continue
+                cursor.execute(
+                    "UPDATE tasks SET status='waiting', prolific_id=NULL, time_allocated=NULL, session_id=NULL WHERE prolific_id=?",
+                    (pid,)
+                )
+                print("DM: Cleared tasks for prolific_id:", pid)
+                prev_expired.append(pid)
+            with open(prev_expired_file, 'w') as f:
+                json.dump(prev_expired, f)
             conn.commit()
     except sqlite3.Error as e:
         print(f"An error occurred while clearing tasks: {e}")
