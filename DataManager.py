@@ -192,6 +192,25 @@ def get_specific_result(result_id):
         print(f"An error occurred: {e}")
         return None
 
+def clear_tasks_for_prolific_pids(prolific_pids):
+    """
+    Clears tasks back to waiting status for tasks associated with the given list of prolific_pids.
+
+    Parameters:
+    prolific_pids (list): List of prolific_pids whose tasks need to be reset to waiting status.
+
+    Returns:
+    None
+    """
+    try:
+        with create_connection() as conn:
+            cursor = conn.cursor()
+            for pid in prolific_pids:
+                cursor.execute("UPDATE tasks SET status='waiting', prolific_id=NULL, time_allocated=NULL, session_id=NULL WHERE prolific_id=?", (pid,))
+            conn.commit()
+    except sqlite3.Error as e:
+        print(f"An error occurred while clearing tasks: {e}")
+
 
 #expire_tasks()
 #complete_task('9f28d264-434b-433d-abcf-4124bb97c019', '{"test": 1}', '1234')
